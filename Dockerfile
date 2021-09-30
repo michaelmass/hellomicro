@@ -1,9 +1,12 @@
-FROM alpine:3.9 as builder
+FROM golang:1.17-alpine as builder
 
 WORKDIR /app
 
 RUN apk add --no-cache git ca-certificates
 RUN adduser -D -g '' appuser
+
+COPY . .
+RUN CGO_ENABLED=0 go build .
 
 FROM scratch
 
@@ -12,6 +15,6 @@ COPY --from=builder /etc/passwd /etc/passwd
 
 USER appuser
 
-COPY --from=builder /app/app /usr/bin/app
+COPY --from=builder /app/hellomicro /usr/bin/hellomicro
 
-ENTRYPOINT app
+ENTRYPOINT ["hellomicro", "serve"]
