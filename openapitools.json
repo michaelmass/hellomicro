@@ -1,0 +1,17 @@
+{
+  "spaces": 2,
+  "generator-cli": {
+    "version": "5.0.1",
+    "generators": {
+      "default": {
+        "generatorName": "typescript-axios",
+        "inputSpec": "api/service.swagger.json",
+        "output": "client/src/api",
+        "additionalProperties": {
+          "useSingleRequestParameter": true,
+          "modelPropertyNaming": "snake_case"
+        }
+      }
+    }
+  }
+}

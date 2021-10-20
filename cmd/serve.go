@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/michaelmass/hellomicro/pkg/server"
+	"github.com/michaelmass/hellomicro/pkg/service"
 	"github.com/spf13/cobra"
 )
 
@@ -15,7 +15,8 @@ func newServe() *cobra.Command {
 		Short: "Start the hellomicro server",
 		Long:  `Start the hellomicro server`,
 		Run: func(cmd *cobra.Command, args []string) {
-			server.Run()
+			s := service.New("localhost", "8080")
+			s.Run()
 		},
 	}
 }

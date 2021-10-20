@@ -1,0 +1,261 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+import "gogoproto/gogo.proto";
+
+package api.hellomicro.v1;
+
+option java_package = "com.api.hellomicro.v1";
+option java_multiple_files = true;
+option java_outer_classname = "ServiceProto";
+
+// Enable custom Marshal method.
+option (gogoproto.marshaler_all) = true;
+// Enable custom Unmarshal method.
+option (gogoproto.unmarshaler_all) = true;
+// Enable custom Size method (Required by Marshal and Unmarshal).
+option (gogoproto.sizer_all) = true;
+// Enable registration with golang/protobuf for the grpc-gateway.
+option (gogoproto.goproto_registration) = true;
+// Enable generation of XXX_MessageName methods for grpc-go/status.
+option (gogoproto.messagename_all) = true;
+
+option go_package = ".;api";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Hello Micro API";
+    version: "0.1";
+    description: "";
+    contact: {
+      name: "Michael Masson";
+      url: "michaelmasson.com";
+      email: "contact@michaelmasson.com";
+    };
+  };
+  host: "localhost:8080";
+  schemes: HTTP;
+  consumes: "application/json";
+  produces: "application/json";
+};
+
+service Hellomicro {
+  rpc Ping(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/v1/ping"
+    };
+  }
+
+  rpc Crash(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/v1/crash"
+    };
+  }
+
+  rpc Panic(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/v1/panic"
+    };
+  }
+
+  rpc Exit(ExitReq) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/v1/exit"
+    };
+  }
+
+  rpc Log(LogReq) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/v1/log"
+    };
+  }
+
+  rpc Latency(LatencyReq) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/v1/latency"
+    };
+  }
+
+  rpc Info(google.protobuf.Empty) returns (InfoRes) {
+    option (google.api.http) = {
+      get: "/v1/info"
+    };
+  }
+
+  rpc Environments(google.protobuf.Empty) returns (EnvironmentsRes) {
+    option (google.api.http) = {
+      get: "/v1/environments"
+    };
+  }
+
+  rpc Echo(google.protobuf.Empty) returns (EchoRes) {
+    option (google.api.http) = {
+      get: "/v1/echo"
+    };
+  }
+
+  rpc Request(RequestReq) returns (RequestRes) {
+    option (google.api.http) = {
+      get: "/v1/request"
+    };
+  }
+
+  rpc ListFiles(ListFilesReq) returns (ListFilesRes) {
+    option (google.api.http) = {
+      get: "/v1/files/list"
+    };
+  }
+
+  rpc ReadFile(ReadFileReq) returns (ReadFileRes) {
+    option (google.api.http) = {
+      get: "/v1/files/read"
+    };
+  }
+
+  rpc WriteFile(WriteFileReq) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/v1/files/write"
+    };
+  }
+
+  rpc DeleteFile(DeleteFileReq) returns (DeleteFileRes) {
+    option (google.api.http) = {
+      get: "/v1/files/delete"
+    };
+  }
+}
+
+message StringArray {
+  repeated string values = 1;
+}
+
+message URL {
+  string scheme = 1;
+	string opaque = 2;
+	string username = 3;
+	string password = 4;
+	string host = 5;
+	string path = 6;
+	string raw_path = 7;
+	string raw_query = 8;
+	string fragment = 9;
+	string raw_fragment = 10;
+	bool force_query = 11;
+	bool password_set = 12;
+}
+
+message Cookie {
+  string name = 1;
+	string value = 2;
+	string path = 3;
+  string domain = 4;
+	google.protobuf.Timestamp expires = 5;
+	string raw_expires = 6;
+	int32 max_age = 7;
+	bool secure = 8;
+	bool http_only = 9;
+	SameSite same_site = 10;
+	string raw = 11;
+	repeated string unparsed = 12;
+
+  enum SameSite {
+    TYPE_UNSPECIFIED = 0;
+    DEFAULT_MODE = 1;
+    LAX_MODE = 2;
+    STRICT_MODE = 3;
+    NONE_MODE = 4;
+  }
+}
+
+message FileInfo {
+  string path = 1;
+  int64 size = 2;
+  string mode = 3;
+  google.protobuf.Timestamp modTime = 4;
+}
+
+/**
+* Requests
+*/
+message ExitReq {
+  int32 code = 1;
+}
+
+message LogReq {
+  int32 count = 1;
+}
+
+message LatencyReq {
+  int32 duration = 1;
+}
+
+message InfoRes {
+  string os = 1;
+  string version = 2;
+  int32 num_cpu = 3;
+  int32 num_go_routine = 4;
+  int64 num_cgo_call = 5;
+  Memory memory = 6;
+
+  message Memory {
+    uint64 alloc = 1;
+    uint64 total_alloc = 2;
+    uint64 sys = 3;
+    uint32 num_gc = 4;
+  }
+}
+
+message EnvironmentsRes {
+  map<string, string> environments = 1;
+}
+
+message EchoRes {
+  string method = 1;
+  string proto = 2;
+  int64 content_length = 3;
+  string remote_addr = 4;
+  string request_uri = 5;
+  string host = 6;
+  string user_agent = 7;
+  string body = 8;
+  map<string, StringArray> headers = 9;
+  map<string, StringArray> params = 10;
+  URL url = 11;
+  repeated Cookie cookies = 12;
+}
+
+message RequestReq {
+  string method = 1;
+  string url = 2;
+  string body = 3;
+}
+
+message RequestRes {
+  string body = 1;
+  int32 status_code = 2;
+  map<string, StringArray> headers = 3;
+}
+
+message ListFilesReq {
+  string path = 1;
+}
+
+message ListFilesRes {
+  repeated FileInfo file_infos = 1;
+}
+
+message ReadFileReq {}
+message ReadFileRes {}
+
+message WriteFileReq {
+  string path = 1;
+  bytes content = 2;
+  string mode = 3;
+}
+
+message DeleteFileReq {}
+message DeleteFileRes {}

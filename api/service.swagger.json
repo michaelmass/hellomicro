@@ -1,0 +1,717 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Hello Micro API",
+    "version": "0.1",
+    "contact": {
+      "name": "Michael Masson",
+      "url": "michaelmasson.com",
+      "email": "contact@michaelmasson.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "Hellomicro"
+    }
+  ],
+  "host": "localhost:8080",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/crash": {
+      "get": {
+        "operationId": "Hellomicro_Crash",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Hellomicro"
+        ]
+      }
+    },
+    "/v1/echo": {
+      "get": {
+        "operationId": "Hellomicro_Echo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1EchoRes"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Hellomicro"
+        ]
+      }
+    },
+    "/v1/environments": {
+      "get": {
+        "operationId": "Hellomicro_Environments",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1EnvironmentsRes"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Hellomicro"
+        ]
+      }
+    },
+    "/v1/exit": {
+      "get": {
+        "operationId": "Hellomicro_Exit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Hellomicro"
+        ]
+      }
+    },
+    "/v1/files/delete": {
+      "get": {
+        "operationId": "Hellomicro_DeleteFile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteFileRes"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Hellomicro"
+        ]
+      }
+    },
+    "/v1/files/list": {
+      "get": {
+        "operationId": "Hellomicro_ListFiles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListFilesRes"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "path",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Hellomicro"
+        ]
+      }
+    },
+    "/v1/files/read": {
+      "get": {
+        "operationId": "Hellomicro_ReadFile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ReadFileRes"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Hellomicro"
+        ]
+      }
+    },
+    "/v1/files/write": {
+      "get": {
+        "operationId": "Hellomicro_WriteFile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "path",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "content",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "byte"
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Hellomicro"
+        ]
+      }
+    },
+    "/v1/info": {
+      "get": {
+        "operationId": "Hellomicro_Info",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1InfoRes"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Hellomicro"
+        ]
+      }
+    },
+    "/v1/latency": {
+      "get": {
+        "operationId": "Hellomicro_Latency",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "duration",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Hellomicro"
+        ]
+      }
+    },
+    "/v1/log": {
+      "get": {
+        "operationId": "Hellomicro_Log",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Hellomicro"
+        ]
+      }
+    },
+    "/v1/panic": {
+      "get": {
+        "operationId": "Hellomicro_Panic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Hellomicro"
+        ]
+      }
+    },
+    "/v1/ping": {
+      "get": {
+        "operationId": "Hellomicro_Ping",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Hellomicro"
+        ]
+      }
+    },
+    "/v1/request": {
+      "get": {
+        "operationId": "Hellomicro_Request",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RequestRes"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "url",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Hellomicro"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CookieSameSite": {
+      "type": "string",
+      "enum": [
+        "TYPE_UNSPECIFIED",
+        "DEFAULT_MODE",
+        "LAX_MODE",
+        "STRICT_MODE",
+        "NONE_MODE"
+      ],
+      "default": "TYPE_UNSPECIFIED"
+    },
+    "InfoResMemory": {
+      "type": "object",
+      "properties": {
+        "alloc": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "totalAlloc": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "sys": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "numGc": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "typeUrl": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1Cookie": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        },
+        "expires": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rawExpires": {
+          "type": "string"
+        },
+        "maxAge": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "secure": {
+          "type": "boolean"
+        },
+        "httpOnly": {
+          "type": "boolean"
+        },
+        "sameSite": {
+          "$ref": "#/definitions/CookieSameSite"
+        },
+        "raw": {
+          "type": "string"
+        },
+        "unparsed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1DeleteFileRes": {
+      "type": "object"
+    },
+    "v1EchoRes": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string"
+        },
+        "proto": {
+          "type": "string"
+        },
+        "contentLength": {
+          "type": "string",
+          "format": "int64"
+        },
+        "remoteAddr": {
+          "type": "string"
+        },
+        "requestUri": {
+          "type": "string"
+        },
+        "host": {
+          "type": "string"
+        },
+        "userAgent": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "headers": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/v1StringArray"
+          }
+        },
+        "params": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/v1StringArray"
+          }
+        },
+        "url": {
+          "$ref": "#/definitions/v1URL"
+        },
+        "cookies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Cookie"
+          }
+        }
+      }
+    },
+    "v1EnvironmentsRes": {
+      "type": "object",
+      "properties": {
+        "environments": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1FileInfo": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string",
+          "format": "int64"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "modTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "v1InfoRes": {
+      "type": "object",
+      "properties": {
+        "os": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "numCpu": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "numGoRoutine": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "numCgoCall": {
+          "type": "string",
+          "format": "int64"
+        },
+        "memory": {
+          "$ref": "#/definitions/InfoResMemory"
+        }
+      }
+    },
+    "v1ListFilesRes": {
+      "type": "object",
+      "properties": {
+        "fileInfos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1FileInfo"
+          }
+        }
+      }
+    },
+    "v1ReadFileRes": {
+      "type": "object"
+    },
+    "v1RequestRes": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "headers": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/v1StringArray"
+          }
+        }
+      }
+    },
+    "v1StringArray": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1URL": {
+      "type": "object",
+      "properties": {
+        "scheme": {
+          "type": "string"
+        },
+        "opaque": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "host": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "rawPath": {
+          "type": "string"
+        },
+        "rawQuery": {
+          "type": "string"
+        },
+        "fragment": {
+          "type": "string"
+        },
+        "rawFragment": {
+          "type": "string"
+        },
+        "forceQuery": {
+          "type": "boolean"
+        },
+        "passwordSet": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
