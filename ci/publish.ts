@@ -31,7 +31,7 @@ await connect(async (client) => {
 
   await deploy({
     container,
-    repository: "michaelmass/hellomicro",
+    repository: "docker.io/michaelmass/hellomicro",
     tags: ["latest"],
   });
 
