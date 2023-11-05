@@ -22,10 +22,24 @@ await connect(async (client) => {
     secretName: "dockerUsername",
   });
 
-  await login({
-    username: dockerUsernameSecret,
-    password: dockerTokenSecret,
+  const cmd = new Deno.Command("docker", {
+    stderr: "inherit",
+    stdout: "inherit",
+    stdin: "piped",
+    args: ["login", "-u", await dockerUsernameSecret.plaintext(), "--password-stdin", "docker.io"],
   })
+
+  const p = cmd.spawn();
+  const writer = p.stdin.getWriter();
+
+  await writer.write(new TextEncoder().encode(await dockerTokenSecret.plaintext()));
+  await writer.close()
+
+  const output = await p.output()
+
+  if (output.code !== 0) {
+    throw new Error("Failed to login into docker");
+  }
 
   const container = await build({ client });
 
