@@ -22,6 +22,7 @@ await connect(async (client) => {
     secretName: "dockerUsername",
   });
 
+  console.log("Logging into docker")
   await login({
     username: dockerUsernameSecret,
     password: dockerTokenSecret,
