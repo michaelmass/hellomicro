@@ -26,7 +26,7 @@ await connect(async (client) => {
     stderr: "inherit",
     stdout: "inherit",
     stdin: "piped",
-    args: ["login", "-u", await dockerUsernameSecret.plaintext(), "--password-stdin", "docker.io"],
+    args: ["login", "docker.io", "-u", await dockerUsernameSecret.plaintext(), "--password-stdin"],
   })
 
   const p = cmd.spawn();
