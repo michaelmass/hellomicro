@@ -12,1220 +12,1465 @@
  * Do not edit the class manually.
  */
 
-
-import { Configuration } from './configuration';
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import { Configuration } from "./configuration";
+import globalAxios, { AxiosInstance, AxiosPromise } from "axios";
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from './common';
+import {
+  assertParamExists,
+  createRequestFunction,
+  DUMMY_BASE_URL,
+  serializeDataIfNeeded,
+  setApiKeyToObject,
+  setBasicAuthToObject,
+  setBearerAuthToObject,
+  setOAuthToObject,
+  setSearchParams,
+  toPathString,
+} from "./common";
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
+import {
+  BASE_PATH,
+  BaseAPI,
+  COLLECTION_FORMATS,
+  RequestArgs,
+  RequiredError,
+} from "./base";
 
 /**
- * 
  * @export
  * @enum {string}
  */
 export enum CookieSameSite {
-    TypeUnspecified = 'TYPE_UNSPECIFIED',
-    DefaultMode = 'DEFAULT_MODE',
-    LaxMode = 'LAX_MODE',
-    StrictMode = 'STRICT_MODE',
-    NoneMode = 'NONE_MODE'
+  TypeUnspecified = "TYPE_UNSPECIFIED",
+  DefaultMode = "DEFAULT_MODE",
+  LaxMode = "LAX_MODE",
+  StrictMode = "STRICT_MODE",
+  NoneMode = "NONE_MODE",
 }
 
 /**
- * 
  * @export
  * @interface InfoResMemory
  */
 export interface InfoResMemory {
-    /**
-     * 
-     * @type {string}
-     * @memberof InfoResMemory
-     */
-    alloc?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InfoResMemory
-     */
-    total_alloc?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InfoResMemory
-     */
-    sys?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InfoResMemory
-     */
-    num_gc?: number;
+  /**
+   * @type {string}
+   * @memberof InfoResMemory
+   */
+  alloc?: string;
+  /**
+   * @type {string}
+   * @memberof InfoResMemory
+   */
+  total_alloc?: string;
+  /**
+   * @type {string}
+   * @memberof InfoResMemory
+   */
+  sys?: string;
+  /**
+   * @type {number}
+   * @memberof InfoResMemory
+   */
+  num_gc?: number;
 }
 /**
- * 
  * @export
  * @interface ProtobufAny
  */
 export interface ProtobufAny {
-    /**
-     * 
-     * @type {string}
-     * @memberof ProtobufAny
-     */
-    type_url?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ProtobufAny
-     */
-    value?: string;
+  /**
+   * @type {string}
+   * @memberof ProtobufAny
+   */
+  type_url?: string;
+  /**
+   * @type {string}
+   * @memberof ProtobufAny
+   */
+  value?: string;
 }
 /**
- * 
  * @export
  * @interface RpcStatus
  */
 export interface RpcStatus {
-    /**
-     * 
-     * @type {number}
-     * @memberof RpcStatus
-     */
-    code?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof RpcStatus
-     */
-    message?: string;
-    /**
-     * 
-     * @type {Array<ProtobufAny>}
-     * @memberof RpcStatus
-     */
-    details?: Array<ProtobufAny>;
+  /**
+   * @type {number}
+   * @memberof RpcStatus
+   */
+  code?: number;
+  /**
+   * @type {string}
+   * @memberof RpcStatus
+   */
+  message?: string;
+  /**
+   * @type {Array<ProtobufAny>}
+   * @memberof RpcStatus
+   */
+  details?: Array<ProtobufAny>;
 }
 /**
- * 
  * @export
  * @interface V1Cookie
  */
 export interface V1Cookie {
-    /**
-     * 
-     * @type {string}
-     * @memberof V1Cookie
-     */
-    name?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1Cookie
-     */
-    value?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1Cookie
-     */
-    path?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1Cookie
-     */
-    domain?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1Cookie
-     */
-    expires?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1Cookie
-     */
-    raw_expires?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof V1Cookie
-     */
-    max_age?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof V1Cookie
-     */
-    secure?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof V1Cookie
-     */
-    http_only?: boolean;
-    /**
-     * 
-     * @type {CookieSameSite}
-     * @memberof V1Cookie
-     */
-    same_site?: CookieSameSite;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1Cookie
-     */
-    raw?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof V1Cookie
-     */
-    unparsed?: Array<string>;
+  /**
+   * @type {string}
+   * @memberof V1Cookie
+   */
+  name?: string;
+  /**
+   * @type {string}
+   * @memberof V1Cookie
+   */
+  value?: string;
+  /**
+   * @type {string}
+   * @memberof V1Cookie
+   */
+  path?: string;
+  /**
+   * @type {string}
+   * @memberof V1Cookie
+   */
+  domain?: string;
+  /**
+   * @type {string}
+   * @memberof V1Cookie
+   */
+  expires?: string;
+  /**
+   * @type {string}
+   * @memberof V1Cookie
+   */
+  raw_expires?: string;
+  /**
+   * @type {number}
+   * @memberof V1Cookie
+   */
+  max_age?: number;
+  /**
+   * @type {boolean}
+   * @memberof V1Cookie
+   */
+  secure?: boolean;
+  /**
+   * @type {boolean}
+   * @memberof V1Cookie
+   */
+  http_only?: boolean;
+  /**
+   * @type {CookieSameSite}
+   * @memberof V1Cookie
+   */
+  same_site?: CookieSameSite;
+  /**
+   * @type {string}
+   * @memberof V1Cookie
+   */
+  raw?: string;
+  /**
+   * @type {Array<string>}
+   * @memberof V1Cookie
+   */
+  unparsed?: Array<string>;
 }
 /**
- * 
  * @export
  * @interface V1EchoRes
  */
 export interface V1EchoRes {
-    /**
-     * 
-     * @type {string}
-     * @memberof V1EchoRes
-     */
-    method?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1EchoRes
-     */
-    proto?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1EchoRes
-     */
-    content_length?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1EchoRes
-     */
-    remote_addr?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1EchoRes
-     */
-    request_uri?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1EchoRes
-     */
-    host?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1EchoRes
-     */
-    user_agent?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1EchoRes
-     */
-    body?: string;
-    /**
-     * 
-     * @type {{ [key: string]: V1StringArray; }}
-     * @memberof V1EchoRes
-     */
-    headers?: { [key: string]: V1StringArray; };
-    /**
-     * 
-     * @type {{ [key: string]: V1StringArray; }}
-     * @memberof V1EchoRes
-     */
-    params?: { [key: string]: V1StringArray; };
-    /**
-     * 
-     * @type {V1URL}
-     * @memberof V1EchoRes
-     */
-    url?: V1URL;
-    /**
-     * 
-     * @type {Array<V1Cookie>}
-     * @memberof V1EchoRes
-     */
-    cookies?: Array<V1Cookie>;
+  /**
+   * @type {string}
+   * @memberof V1EchoRes
+   */
+  method?: string;
+  /**
+   * @type {string}
+   * @memberof V1EchoRes
+   */
+  proto?: string;
+  /**
+   * @type {string}
+   * @memberof V1EchoRes
+   */
+  content_length?: string;
+  /**
+   * @type {string}
+   * @memberof V1EchoRes
+   */
+  remote_addr?: string;
+  /**
+   * @type {string}
+   * @memberof V1EchoRes
+   */
+  request_uri?: string;
+  /**
+   * @type {string}
+   * @memberof V1EchoRes
+   */
+  host?: string;
+  /**
+   * @type {string}
+   * @memberof V1EchoRes
+   */
+  user_agent?: string;
+  /**
+   * @type {string}
+   * @memberof V1EchoRes
+   */
+  body?: string;
+  /**
+   * @type {{ [key: string]: V1StringArray; }}
+   * @memberof V1EchoRes
+   */
+  headers?: { [key: string]: V1StringArray };
+  /**
+   * @type {{ [key: string]: V1StringArray; }}
+   * @memberof V1EchoRes
+   */
+  params?: { [key: string]: V1StringArray };
+  /**
+   * @type {V1URL}
+   * @memberof V1EchoRes
+   */
+  url?: V1URL;
+  /**
+   * @type {Array<V1Cookie>}
+   * @memberof V1EchoRes
+   */
+  cookies?: Array<V1Cookie>;
 }
 /**
- * 
  * @export
  * @interface V1EnvironmentsRes
  */
 export interface V1EnvironmentsRes {
-    /**
-     * 
-     * @type {{ [key: string]: string; }}
-     * @memberof V1EnvironmentsRes
-     */
-    environments?: { [key: string]: string; };
+  /**
+   * @type {{ [key: string]: string; }}
+   * @memberof V1EnvironmentsRes
+   */
+  environments?: { [key: string]: string };
 }
 /**
- * 
  * @export
  * @interface V1FileInfo
  */
 export interface V1FileInfo {
-    /**
-     * 
-     * @type {string}
-     * @memberof V1FileInfo
-     */
-    path?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1FileInfo
-     */
-    size?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1FileInfo
-     */
-    mode?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1FileInfo
-     */
-    mod_time?: string;
+  /**
+   * @type {string}
+   * @memberof V1FileInfo
+   */
+  path?: string;
+  /**
+   * @type {string}
+   * @memberof V1FileInfo
+   */
+  size?: string;
+  /**
+   * @type {string}
+   * @memberof V1FileInfo
+   */
+  mode?: string;
+  /**
+   * @type {string}
+   * @memberof V1FileInfo
+   */
+  mod_time?: string;
 }
 /**
- * 
  * @export
  * @interface V1InfoRes
  */
 export interface V1InfoRes {
-    /**
-     * 
-     * @type {string}
-     * @memberof V1InfoRes
-     */
-    os?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1InfoRes
-     */
-    version?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof V1InfoRes
-     */
-    num_cpu?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof V1InfoRes
-     */
-    num_go_routine?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1InfoRes
-     */
-    num_cgo_call?: string;
-    /**
-     * 
-     * @type {InfoResMemory}
-     * @memberof V1InfoRes
-     */
-    memory?: InfoResMemory;
+  /**
+   * @type {string}
+   * @memberof V1InfoRes
+   */
+  os?: string;
+  /**
+   * @type {string}
+   * @memberof V1InfoRes
+   */
+  version?: string;
+  /**
+   * @type {number}
+   * @memberof V1InfoRes
+   */
+  num_cpu?: number;
+  /**
+   * @type {number}
+   * @memberof V1InfoRes
+   */
+  num_go_routine?: number;
+  /**
+   * @type {string}
+   * @memberof V1InfoRes
+   */
+  num_cgo_call?: string;
+  /**
+   * @type {InfoResMemory}
+   * @memberof V1InfoRes
+   */
+  memory?: InfoResMemory;
 }
 /**
- * 
  * @export
  * @interface V1ListFilesRes
  */
 export interface V1ListFilesRes {
-    /**
-     * 
-     * @type {Array<V1FileInfo>}
-     * @memberof V1ListFilesRes
-     */
-    file_infos?: Array<V1FileInfo>;
+  /**
+   * @type {Array<V1FileInfo>}
+   * @memberof V1ListFilesRes
+   */
+  file_infos?: Array<V1FileInfo>;
 }
 /**
- * 
  * @export
  * @interface V1RequestRes
  */
 export interface V1RequestRes {
-    /**
-     * 
-     * @type {string}
-     * @memberof V1RequestRes
-     */
-    body?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof V1RequestRes
-     */
-    status_code?: number;
-    /**
-     * 
-     * @type {{ [key: string]: V1StringArray; }}
-     * @memberof V1RequestRes
-     */
-    headers?: { [key: string]: V1StringArray; };
+  /**
+   * @type {string}
+   * @memberof V1RequestRes
+   */
+  body?: string;
+  /**
+   * @type {number}
+   * @memberof V1RequestRes
+   */
+  status_code?: number;
+  /**
+   * @type {{ [key: string]: V1StringArray; }}
+   * @memberof V1RequestRes
+   */
+  headers?: { [key: string]: V1StringArray };
 }
 /**
- * 
  * @export
  * @interface V1StringArray
  */
 export interface V1StringArray {
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof V1StringArray
-     */
-    values?: Array<string>;
+  /**
+   * @type {Array<string>}
+   * @memberof V1StringArray
+   */
+  values?: Array<string>;
 }
 /**
- * 
  * @export
  * @interface V1URL
  */
 export interface V1URL {
-    /**
-     * 
-     * @type {string}
-     * @memberof V1URL
-     */
-    scheme?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1URL
-     */
-    opaque?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1URL
-     */
-    username?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1URL
-     */
-    password?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1URL
-     */
-    host?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1URL
-     */
-    path?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1URL
-     */
-    raw_path?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1URL
-     */
-    raw_query?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1URL
-     */
-    fragment?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof V1URL
-     */
-    raw_fragment?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof V1URL
-     */
-    force_query?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof V1URL
-     */
-    password_set?: boolean;
+  /**
+   * @type {string}
+   * @memberof V1URL
+   */
+  scheme?: string;
+  /**
+   * @type {string}
+   * @memberof V1URL
+   */
+  opaque?: string;
+  /**
+   * @type {string}
+   * @memberof V1URL
+   */
+  username?: string;
+  /**
+   * @type {string}
+   * @memberof V1URL
+   */
+  password?: string;
+  /**
+   * @type {string}
+   * @memberof V1URL
+   */
+  host?: string;
+  /**
+   * @type {string}
+   * @memberof V1URL
+   */
+  path?: string;
+  /**
+   * @type {string}
+   * @memberof V1URL
+   */
+  raw_path?: string;
+  /**
+   * @type {string}
+   * @memberof V1URL
+   */
+  raw_query?: string;
+  /**
+   * @type {string}
+   * @memberof V1URL
+   */
+  fragment?: string;
+  /**
+   * @type {string}
+   * @memberof V1URL
+   */
+  raw_fragment?: string;
+  /**
+   * @type {boolean}
+   * @memberof V1URL
+   */
+  force_query?: boolean;
+  /**
+   * @type {boolean}
+   * @memberof V1URL
+   */
+  password_set?: boolean;
 }
 
 /**
  * HellomicroApi - axios parameter creator
  * @export
  */
-export const HellomicroApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroCrash: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v1/crash`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroDeleteFile: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v1/files/delete`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroEcho: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v1/echo`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroEnvironments: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v1/environments`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} [code] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroExit: async (code?: number, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v1/exit`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (code !== undefined) {
-                localVarQueryParameter['code'] = code;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroInfo: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v1/info`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} [duration] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroLatency: async (duration?: number, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v1/latency`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (duration !== undefined) {
-                localVarQueryParameter['duration'] = duration;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} [path] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroListFiles: async (path?: string, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v1/files/list`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (path !== undefined) {
-                localVarQueryParameter['path'] = path;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} [count] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroLog: async (count?: number, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v1/log`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (count !== undefined) {
-                localVarQueryParameter['count'] = count;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroPanic: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v1/panic`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroPing: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v1/ping`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroReadFile: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v1/files/read`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} [method] 
-         * @param {string} [url] 
-         * @param {string} [body] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroRequest: async (method?: string, url?: string, body?: string, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v1/request`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (method !== undefined) {
-                localVarQueryParameter['method'] = method;
-            }
-
-            if (url !== undefined) {
-                localVarQueryParameter['url'] = url;
-            }
-
-            if (body !== undefined) {
-                localVarQueryParameter['body'] = body;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} [path] 
-         * @param {string} [content] 
-         * @param {string} [mode] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroWriteFile: async (path?: string, content?: string, mode?: string, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v1/files/write`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (path !== undefined) {
-                localVarQueryParameter['path'] = path;
-            }
-
-            if (content !== undefined) {
-                localVarQueryParameter['content'] = content;
-            }
-
-            if (mode !== undefined) {
-                localVarQueryParameter['mode'] = mode;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
+export const HellomicroApiAxiosParamCreator = function (
+  configuration?: Configuration,
+) {
+  return {
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroCrash: async (options: any = {}): Promise<RequestArgs> => {
+      const localVarPath = `/v1/crash`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers
+        ? baseOptions.headers
+        : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroDeleteFile: async (options: any = {}): Promise<RequestArgs> => {
+      const localVarPath = `/v1/files/delete`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers
+        ? baseOptions.headers
+        : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroEcho: async (options: any = {}): Promise<RequestArgs> => {
+      const localVarPath = `/v1/echo`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers
+        ? baseOptions.headers
+        : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroEnvironments: async (options: any = {}): Promise<RequestArgs> => {
+      const localVarPath = `/v1/environments`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers
+        ? baseOptions.headers
+        : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * @param {number} [code]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroExit: async (
+      code?: number,
+      options: any = {},
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/v1/exit`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (code !== undefined) {
+        localVarQueryParameter["code"] = code;
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers
+        ? baseOptions.headers
+        : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroInfo: async (options: any = {}): Promise<RequestArgs> => {
+      const localVarPath = `/v1/info`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers
+        ? baseOptions.headers
+        : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * @param {number} [duration]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroLatency: async (
+      duration?: number,
+      options: any = {},
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/v1/latency`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (duration !== undefined) {
+        localVarQueryParameter["duration"] = duration;
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers
+        ? baseOptions.headers
+        : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * @param {string} [path]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroListFiles: async (
+      path?: string,
+      options: any = {},
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/v1/files/list`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (path !== undefined) {
+        localVarQueryParameter["path"] = path;
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers
+        ? baseOptions.headers
+        : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * @param {number} [count]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroLog: async (
+      count?: number,
+      options: any = {},
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/v1/log`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (count !== undefined) {
+        localVarQueryParameter["count"] = count;
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers
+        ? baseOptions.headers
+        : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroPanic: async (options: any = {}): Promise<RequestArgs> => {
+      const localVarPath = `/v1/panic`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers
+        ? baseOptions.headers
+        : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroPing: async (options: any = {}): Promise<RequestArgs> => {
+      const localVarPath = `/v1/ping`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers
+        ? baseOptions.headers
+        : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroReadFile: async (options: any = {}): Promise<RequestArgs> => {
+      const localVarPath = `/v1/files/read`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers
+        ? baseOptions.headers
+        : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * @param {string} [method]
+     * @param {string} [url]
+     * @param {string} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroRequest: async (
+      method?: string,
+      url?: string,
+      body?: string,
+      options: any = {},
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/v1/request`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (method !== undefined) {
+        localVarQueryParameter["method"] = method;
+      }
+
+      if (url !== undefined) {
+        localVarQueryParameter["url"] = url;
+      }
+
+      if (body !== undefined) {
+        localVarQueryParameter["body"] = body;
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers
+        ? baseOptions.headers
+        : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * @param {string} [path]
+     * @param {string} [content]
+     * @param {string} [mode]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroWriteFile: async (
+      path?: string,
+      content?: string,
+      mode?: string,
+      options: any = {},
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/v1/files/write`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (path !== undefined) {
+        localVarQueryParameter["path"] = path;
+      }
+
+      if (content !== undefined) {
+        localVarQueryParameter["content"] = content;
+      }
+
+      if (mode !== undefined) {
+        localVarQueryParameter["mode"] = mode;
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers
+        ? baseOptions.headers
+        : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
 };
 
 /**
  * HellomicroApi - functional programming interface
  * @export
  */
-export const HellomicroApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = HellomicroApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hellomicroCrash(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroCrash(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hellomicroDeleteFile(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroDeleteFile(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hellomicroEcho(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<V1EchoRes>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroEcho(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hellomicroEnvironments(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<V1EnvironmentsRes>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroEnvironments(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {number} [code] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hellomicroExit(code?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroExit(code, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hellomicroInfo(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<V1InfoRes>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroInfo(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {number} [duration] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hellomicroLatency(duration?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroLatency(duration, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} [path] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hellomicroListFiles(path?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<V1ListFilesRes>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroListFiles(path, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {number} [count] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hellomicroLog(count?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroLog(count, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hellomicroPanic(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroPanic(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hellomicroPing(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroPing(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hellomicroReadFile(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroReadFile(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} [method] 
-         * @param {string} [url] 
-         * @param {string} [body] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hellomicroRequest(method?: string, url?: string, body?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<V1RequestRes>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroRequest(method, url, body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} [path] 
-         * @param {string} [content] 
-         * @param {string} [mode] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async hellomicroWriteFile(path?: string, content?: string, mode?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroWriteFile(path, content, mode, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
+export const HellomicroApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = HellomicroApiAxiosParamCreator(
+    configuration,
+  );
+  return {
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async hellomicroCrash(
+      options?: any,
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroCrash(
+        options,
+      );
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      );
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async hellomicroDeleteFile(
+      options?: any,
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator
+        .hellomicroDeleteFile(options);
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      );
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async hellomicroEcho(
+      options?: any,
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<V1EchoRes>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroEcho(
+        options,
+      );
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      );
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async hellomicroEnvironments(
+      options?: any,
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string,
+      ) => AxiosPromise<V1EnvironmentsRes>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator
+        .hellomicroEnvironments(options);
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      );
+    },
+    /**
+     * @param {number} [code]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async hellomicroExit(
+      code?: number,
+      options?: any,
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroExit(
+        code,
+        options,
+      );
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      );
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async hellomicroInfo(
+      options?: any,
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<V1InfoRes>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroInfo(
+        options,
+      );
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      );
+    },
+    /**
+     * @param {number} [duration]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async hellomicroLatency(
+      duration?: number,
+      options?: any,
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator
+        .hellomicroLatency(duration, options);
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      );
+    },
+    /**
+     * @param {string} [path]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async hellomicroListFiles(
+      path?: string,
+      options?: any,
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<V1ListFilesRes>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator
+        .hellomicroListFiles(path, options);
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      );
+    },
+    /**
+     * @param {number} [count]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async hellomicroLog(
+      count?: number,
+      options?: any,
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroLog(
+        count,
+        options,
+      );
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      );
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async hellomicroPanic(
+      options?: any,
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroPanic(
+        options,
+      );
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      );
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async hellomicroPing(
+      options?: any,
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.hellomicroPing(
+        options,
+      );
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      );
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async hellomicroReadFile(
+      options?: any,
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator
+        .hellomicroReadFile(options);
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      );
+    },
+    /**
+     * @param {string} [method]
+     * @param {string} [url]
+     * @param {string} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async hellomicroRequest(
+      method?: string,
+      url?: string,
+      body?: string,
+      options?: any,
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<V1RequestRes>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator
+        .hellomicroRequest(method, url, body, options);
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      );
+    },
+    /**
+     * @param {string} [path]
+     * @param {string} [content]
+     * @param {string} [mode]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async hellomicroWriteFile(
+      path?: string,
+      content?: string,
+      mode?: string,
+      options?: any,
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator
+        .hellomicroWriteFile(path, content, mode, options);
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration,
+      );
+    },
+  };
 };
 
 /**
  * HellomicroApi - factory interface
  * @export
  */
-export const HellomicroApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = HellomicroApiFp(configuration)
-    return {
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroCrash(options?: any): AxiosPromise<object> {
-            return localVarFp.hellomicroCrash(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroDeleteFile(options?: any): AxiosPromise<object> {
-            return localVarFp.hellomicroDeleteFile(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroEcho(options?: any): AxiosPromise<V1EchoRes> {
-            return localVarFp.hellomicroEcho(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroEnvironments(options?: any): AxiosPromise<V1EnvironmentsRes> {
-            return localVarFp.hellomicroEnvironments(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} [code] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroExit(code?: number, options?: any): AxiosPromise<object> {
-            return localVarFp.hellomicroExit(code, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroInfo(options?: any): AxiosPromise<V1InfoRes> {
-            return localVarFp.hellomicroInfo(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} [duration] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroLatency(duration?: number, options?: any): AxiosPromise<object> {
-            return localVarFp.hellomicroLatency(duration, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} [path] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroListFiles(path?: string, options?: any): AxiosPromise<V1ListFilesRes> {
-            return localVarFp.hellomicroListFiles(path, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} [count] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroLog(count?: number, options?: any): AxiosPromise<object> {
-            return localVarFp.hellomicroLog(count, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroPanic(options?: any): AxiosPromise<object> {
-            return localVarFp.hellomicroPanic(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroPing(options?: any): AxiosPromise<object> {
-            return localVarFp.hellomicroPing(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroReadFile(options?: any): AxiosPromise<object> {
-            return localVarFp.hellomicroReadFile(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} [method] 
-         * @param {string} [url] 
-         * @param {string} [body] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroRequest(method?: string, url?: string, body?: string, options?: any): AxiosPromise<V1RequestRes> {
-            return localVarFp.hellomicroRequest(method, url, body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} [path] 
-         * @param {string} [content] 
-         * @param {string} [mode] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        hellomicroWriteFile(path?: string, content?: string, mode?: string, options?: any): AxiosPromise<object> {
-            return localVarFp.hellomicroWriteFile(path, content, mode, options).then((request) => request(axios, basePath));
-        },
-    };
+export const HellomicroApiFactory = function (
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance,
+) {
+  const localVarFp = HellomicroApiFp(configuration);
+  return {
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroCrash(options?: any): AxiosPromise<object> {
+      return localVarFp.hellomicroCrash(options).then((request) =>
+        request(axios, basePath)
+      );
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroDeleteFile(options?: any): AxiosPromise<object> {
+      return localVarFp.hellomicroDeleteFile(options).then((request) =>
+        request(axios, basePath)
+      );
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroEcho(options?: any): AxiosPromise<V1EchoRes> {
+      return localVarFp.hellomicroEcho(options).then((request) =>
+        request(axios, basePath)
+      );
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroEnvironments(options?: any): AxiosPromise<V1EnvironmentsRes> {
+      return localVarFp.hellomicroEnvironments(options).then((request) =>
+        request(axios, basePath)
+      );
+    },
+    /**
+     * @param {number} [code]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroExit(code?: number, options?: any): AxiosPromise<object> {
+      return localVarFp.hellomicroExit(code, options).then((request) =>
+        request(axios, basePath)
+      );
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroInfo(options?: any): AxiosPromise<V1InfoRes> {
+      return localVarFp.hellomicroInfo(options).then((request) =>
+        request(axios, basePath)
+      );
+    },
+    /**
+     * @param {number} [duration]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroLatency(duration?: number, options?: any): AxiosPromise<object> {
+      return localVarFp.hellomicroLatency(duration, options).then((request) =>
+        request(axios, basePath)
+      );
+    },
+    /**
+     * @param {string} [path]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroListFiles(
+      path?: string,
+      options?: any,
+    ): AxiosPromise<V1ListFilesRes> {
+      return localVarFp.hellomicroListFiles(path, options).then((request) =>
+        request(axios, basePath)
+      );
+    },
+    /**
+     * @param {number} [count]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroLog(count?: number, options?: any): AxiosPromise<object> {
+      return localVarFp.hellomicroLog(count, options).then((request) =>
+        request(axios, basePath)
+      );
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroPanic(options?: any): AxiosPromise<object> {
+      return localVarFp.hellomicroPanic(options).then((request) =>
+        request(axios, basePath)
+      );
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroPing(options?: any): AxiosPromise<object> {
+      return localVarFp.hellomicroPing(options).then((request) =>
+        request(axios, basePath)
+      );
+    },
+    /**
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroReadFile(options?: any): AxiosPromise<object> {
+      return localVarFp.hellomicroReadFile(options).then((request) =>
+        request(axios, basePath)
+      );
+    },
+    /**
+     * @param {string} [method]
+     * @param {string} [url]
+     * @param {string} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroRequest(
+      method?: string,
+      url?: string,
+      body?: string,
+      options?: any,
+    ): AxiosPromise<V1RequestRes> {
+      return localVarFp.hellomicroRequest(method, url, body, options).then((
+        request,
+      ) => request(axios, basePath));
+    },
+    /**
+     * @param {string} [path]
+     * @param {string} [content]
+     * @param {string} [mode]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    hellomicroWriteFile(
+      path?: string,
+      content?: string,
+      mode?: string,
+      options?: any,
+    ): AxiosPromise<object> {
+      return localVarFp.hellomicroWriteFile(path, content, mode, options).then((
+        request,
+      ) => request(axios, basePath));
+    },
+  };
 };
 
 /**
@@ -1234,12 +1479,11 @@ export const HellomicroApiFactory = function (configuration?: Configuration, bas
  * @interface HellomicroApiHellomicroExitRequest
  */
 export interface HellomicroApiHellomicroExitRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof HellomicroApiHellomicroExit
-     */
-    readonly code?: number
+  /**
+   * @type {number}
+   * @memberof HellomicroApiHellomicroExit
+   */
+  readonly code?: number;
 }
 
 /**
@@ -1248,12 +1492,11 @@ export interface HellomicroApiHellomicroExitRequest {
  * @interface HellomicroApiHellomicroLatencyRequest
  */
 export interface HellomicroApiHellomicroLatencyRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof HellomicroApiHellomicroLatency
-     */
-    readonly duration?: number
+  /**
+   * @type {number}
+   * @memberof HellomicroApiHellomicroLatency
+   */
+  readonly duration?: number;
 }
 
 /**
@@ -1262,12 +1505,11 @@ export interface HellomicroApiHellomicroLatencyRequest {
  * @interface HellomicroApiHellomicroListFilesRequest
  */
 export interface HellomicroApiHellomicroListFilesRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof HellomicroApiHellomicroListFiles
-     */
-    readonly path?: string
+  /**
+   * @type {string}
+   * @memberof HellomicroApiHellomicroListFiles
+   */
+  readonly path?: string;
 }
 
 /**
@@ -1276,12 +1518,11 @@ export interface HellomicroApiHellomicroListFilesRequest {
  * @interface HellomicroApiHellomicroLogRequest
  */
 export interface HellomicroApiHellomicroLogRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof HellomicroApiHellomicroLog
-     */
-    readonly count?: number
+  /**
+   * @type {number}
+   * @memberof HellomicroApiHellomicroLog
+   */
+  readonly count?: number;
 }
 
 /**
@@ -1290,26 +1531,23 @@ export interface HellomicroApiHellomicroLogRequest {
  * @interface HellomicroApiHellomicroRequestRequest
  */
 export interface HellomicroApiHellomicroRequestRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof HellomicroApiHellomicroRequest
-     */
-    readonly method?: string
+  /**
+   * @type {string}
+   * @memberof HellomicroApiHellomicroRequest
+   */
+  readonly method?: string;
 
-    /**
-     * 
-     * @type {string}
-     * @memberof HellomicroApiHellomicroRequest
-     */
-    readonly url?: string
+  /**
+   * @type {string}
+   * @memberof HellomicroApiHellomicroRequest
+   */
+  readonly url?: string;
 
-    /**
-     * 
-     * @type {string}
-     * @memberof HellomicroApiHellomicroRequest
-     */
-    readonly body?: string
+  /**
+   * @type {string}
+   * @memberof HellomicroApiHellomicroRequest
+   */
+  readonly body?: string;
 }
 
 /**
@@ -1318,26 +1556,23 @@ export interface HellomicroApiHellomicroRequestRequest {
  * @interface HellomicroApiHellomicroWriteFileRequest
  */
 export interface HellomicroApiHellomicroWriteFileRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof HellomicroApiHellomicroWriteFile
-     */
-    readonly path?: string
+  /**
+   * @type {string}
+   * @memberof HellomicroApiHellomicroWriteFile
+   */
+  readonly path?: string;
 
-    /**
-     * 
-     * @type {string}
-     * @memberof HellomicroApiHellomicroWriteFile
-     */
-    readonly content?: string
+  /**
+   * @type {string}
+   * @memberof HellomicroApiHellomicroWriteFile
+   */
+  readonly content?: string;
 
-    /**
-     * 
-     * @type {string}
-     * @memberof HellomicroApiHellomicroWriteFile
-     */
-    readonly mode?: string
+  /**
+   * @type {string}
+   * @memberof HellomicroApiHellomicroWriteFile
+   */
+  readonly mode?: string;
 }
 
 /**
@@ -1347,151 +1582,189 @@ export interface HellomicroApiHellomicroWriteFileRequest {
  * @extends {BaseAPI}
  */
 export class HellomicroApi extends BaseAPI {
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HellomicroApi
-     */
-    public hellomicroCrash(options?: any) {
-        return HellomicroApiFp(this.configuration).hellomicroCrash(options).then((request) => request(this.axios, this.basePath));
-    }
+  /**
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof HellomicroApi
+   */
+  public hellomicroCrash(options?: any) {
+    return HellomicroApiFp(this.configuration).hellomicroCrash(options).then((
+      request,
+    ) => request(this.axios, this.basePath));
+  }
 
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HellomicroApi
-     */
-    public hellomicroDeleteFile(options?: any) {
-        return HellomicroApiFp(this.configuration).hellomicroDeleteFile(options).then((request) => request(this.axios, this.basePath));
-    }
+  /**
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof HellomicroApi
+   */
+  public hellomicroDeleteFile(options?: any) {
+    return HellomicroApiFp(this.configuration).hellomicroDeleteFile(options)
+      .then((request) => request(this.axios, this.basePath));
+  }
 
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HellomicroApi
-     */
-    public hellomicroEcho(options?: any) {
-        return HellomicroApiFp(this.configuration).hellomicroEcho(options).then((request) => request(this.axios, this.basePath));
-    }
+  /**
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof HellomicroApi
+   */
+  public hellomicroEcho(options?: any) {
+    return HellomicroApiFp(this.configuration).hellomicroEcho(options).then((
+      request,
+    ) => request(this.axios, this.basePath));
+  }
 
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HellomicroApi
-     */
-    public hellomicroEnvironments(options?: any) {
-        return HellomicroApiFp(this.configuration).hellomicroEnvironments(options).then((request) => request(this.axios, this.basePath));
-    }
+  /**
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof HellomicroApi
+   */
+  public hellomicroEnvironments(options?: any) {
+    return HellomicroApiFp(this.configuration).hellomicroEnvironments(options)
+      .then((request) => request(this.axios, this.basePath));
+  }
 
-    /**
-     * 
-     * @param {HellomicroApiHellomicroExitRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HellomicroApi
-     */
-    public hellomicroExit(requestParameters: HellomicroApiHellomicroExitRequest = {}, options?: any) {
-        return HellomicroApiFp(this.configuration).hellomicroExit(requestParameters.code, options).then((request) => request(this.axios, this.basePath));
-    }
+  /**
+   * @param {HellomicroApiHellomicroExitRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof HellomicroApi
+   */
+  public hellomicroExit(
+    requestParameters: HellomicroApiHellomicroExitRequest = {},
+    options?: any,
+  ) {
+    return HellomicroApiFp(this.configuration).hellomicroExit(
+      requestParameters.code,
+      options,
+    ).then((request) => request(this.axios, this.basePath));
+  }
 
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HellomicroApi
-     */
-    public hellomicroInfo(options?: any) {
-        return HellomicroApiFp(this.configuration).hellomicroInfo(options).then((request) => request(this.axios, this.basePath));
-    }
+  /**
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof HellomicroApi
+   */
+  public hellomicroInfo(options?: any) {
+    return HellomicroApiFp(this.configuration).hellomicroInfo(options).then((
+      request,
+    ) => request(this.axios, this.basePath));
+  }
 
-    /**
-     * 
-     * @param {HellomicroApiHellomicroLatencyRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HellomicroApi
-     */
-    public hellomicroLatency(requestParameters: HellomicroApiHellomicroLatencyRequest = {}, options?: any) {
-        return HellomicroApiFp(this.configuration).hellomicroLatency(requestParameters.duration, options).then((request) => request(this.axios, this.basePath));
-    }
+  /**
+   * @param {HellomicroApiHellomicroLatencyRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof HellomicroApi
+   */
+  public hellomicroLatency(
+    requestParameters: HellomicroApiHellomicroLatencyRequest = {},
+    options?: any,
+  ) {
+    return HellomicroApiFp(this.configuration).hellomicroLatency(
+      requestParameters.duration,
+      options,
+    ).then((request) => request(this.axios, this.basePath));
+  }
 
-    /**
-     * 
-     * @param {HellomicroApiHellomicroListFilesRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HellomicroApi
-     */
-    public hellomicroListFiles(requestParameters: HellomicroApiHellomicroListFilesRequest = {}, options?: any) {
-        return HellomicroApiFp(this.configuration).hellomicroListFiles(requestParameters.path, options).then((request) => request(this.axios, this.basePath));
-    }
+  /**
+   * @param {HellomicroApiHellomicroListFilesRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof HellomicroApi
+   */
+  public hellomicroListFiles(
+    requestParameters: HellomicroApiHellomicroListFilesRequest = {},
+    options?: any,
+  ) {
+    return HellomicroApiFp(this.configuration).hellomicroListFiles(
+      requestParameters.path,
+      options,
+    ).then((request) => request(this.axios, this.basePath));
+  }
 
-    /**
-     * 
-     * @param {HellomicroApiHellomicroLogRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HellomicroApi
-     */
-    public hellomicroLog(requestParameters: HellomicroApiHellomicroLogRequest = {}, options?: any) {
-        return HellomicroApiFp(this.configuration).hellomicroLog(requestParameters.count, options).then((request) => request(this.axios, this.basePath));
-    }
+  /**
+   * @param {HellomicroApiHellomicroLogRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof HellomicroApi
+   */
+  public hellomicroLog(
+    requestParameters: HellomicroApiHellomicroLogRequest = {},
+    options?: any,
+  ) {
+    return HellomicroApiFp(this.configuration).hellomicroLog(
+      requestParameters.count,
+      options,
+    ).then((request) => request(this.axios, this.basePath));
+  }
 
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HellomicroApi
-     */
-    public hellomicroPanic(options?: any) {
-        return HellomicroApiFp(this.configuration).hellomicroPanic(options).then((request) => request(this.axios, this.basePath));
-    }
+  /**
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof HellomicroApi
+   */
+  public hellomicroPanic(options?: any) {
+    return HellomicroApiFp(this.configuration).hellomicroPanic(options).then((
+      request,
+    ) => request(this.axios, this.basePath));
+  }
 
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HellomicroApi
-     */
-    public hellomicroPing(options?: any) {
-        return HellomicroApiFp(this.configuration).hellomicroPing(options).then((request) => request(this.axios, this.basePath));
-    }
+  /**
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof HellomicroApi
+   */
+  public hellomicroPing(options?: any) {
+    return HellomicroApiFp(this.configuration).hellomicroPing(options).then((
+      request,
+    ) => request(this.axios, this.basePath));
+  }
 
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HellomicroApi
-     */
-    public hellomicroReadFile(options?: any) {
-        return HellomicroApiFp(this.configuration).hellomicroReadFile(options).then((request) => request(this.axios, this.basePath));
-    }
+  /**
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof HellomicroApi
+   */
+  public hellomicroReadFile(options?: any) {
+    return HellomicroApiFp(this.configuration).hellomicroReadFile(options).then(
+      (request) => request(this.axios, this.basePath),
+    );
+  }
 
-    /**
-     * 
-     * @param {HellomicroApiHellomicroRequestRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HellomicroApi
-     */
-    public hellomicroRequest(requestParameters: HellomicroApiHellomicroRequestRequest = {}, options?: any) {
-        return HellomicroApiFp(this.configuration).hellomicroRequest(requestParameters.method, requestParameters.url, requestParameters.body, options).then((request) => request(this.axios, this.basePath));
-    }
+  /**
+   * @param {HellomicroApiHellomicroRequestRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof HellomicroApi
+   */
+  public hellomicroRequest(
+    requestParameters: HellomicroApiHellomicroRequestRequest = {},
+    options?: any,
+  ) {
+    return HellomicroApiFp(this.configuration).hellomicroRequest(
+      requestParameters.method,
+      requestParameters.url,
+      requestParameters.body,
+      options,
+    ).then((request) => request(this.axios, this.basePath));
+  }
 
-    /**
-     * 
-     * @param {HellomicroApiHellomicroWriteFileRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof HellomicroApi
-     */
-    public hellomicroWriteFile(requestParameters: HellomicroApiHellomicroWriteFileRequest = {}, options?: any) {
-        return HellomicroApiFp(this.configuration).hellomicroWriteFile(requestParameters.path, requestParameters.content, requestParameters.mode, options).then((request) => request(this.axios, this.basePath));
-    }
+  /**
+   * @param {HellomicroApiHellomicroWriteFileRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof HellomicroApi
+   */
+  public hellomicroWriteFile(
+    requestParameters: HellomicroApiHellomicroWriteFileRequest = {},
+    options?: any,
+  ) {
+    return HellomicroApiFp(this.configuration).hellomicroWriteFile(
+      requestParameters.path,
+      requestParameters.content,
+      requestParameters.mode,
+      options,
+    ).then((request) => request(this.axios, this.basePath));
+  }
 }
-
-

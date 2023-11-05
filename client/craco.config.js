@@ -1,6 +1,6 @@
-const CracoSwcPlugin = require('craco-swc')
-const tailwindcss = require('tailwindcss')
-const autoprefixer = require('autoprefixer')
+const CracoSwcPlugin = require("craco-swc");
+const tailwindcss = require("tailwindcss");
+const autoprefixer = require("autoprefixer");
 
 module.exports = {
   style: {
@@ -9,4 +9,4 @@ module.exports = {
     },
   },
   plugins: [{ plugin: CracoSwcPlugin }],
-}
+};

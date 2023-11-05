@@ -1,4 +1,4 @@
-import create from 'zustand'
+import create from "zustand";
 
 interface AsideState {
   minimized: boolean;
@@ -19,46 +19,46 @@ interface AsideItem {
 
 export default create<AsideState>((set) => ({
   minimized: false,
-  menuOpened: '',
+  menuOpened: "",
   sections: [
     {
       items: [
         {
-          text: 'Dashboard',
+          text: "Dashboard",
           icon: icons.types.dashboard,
           to: routes.dashboard,
         },
         {
-          text: 'Status',
+          text: "Status",
           icon: icons.types.status,
           to: routes.status,
         },
         {
-          text: 'Release',
+          text: "Release",
           icon: icons.types.release,
           to: routes.release,
         },
         {
-          text: 'Provisions',
+          text: "Provisions",
           icon: icons.types.provision,
           to: routes.provision,
         },
         {
-          text: 'Versions',
+          text: "Versions",
           icon: icons.types.version,
           to: routes.version,
         },
         {
-          text: 'Docs',
+          text: "Docs",
           icon: icons.types.doc,
           to: routes.doc,
         },
         {
-          text: 'Insight',
+          text: "Insight",
           icon: icons.types.insight,
           to: routes.insight,
         },
       ],
     },
   ],
-}))
+}));
