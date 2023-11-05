@@ -7,7 +7,11 @@ import {
 } from "https://raw.githubusercontent.com/michaelmass/pipelines/master/dagger/docker.ts";
 import { getInfinsical } from "https://raw.githubusercontent.com/michaelmass/pipelines/master/dagger/infisical.ts";
 
+console.log("TESTING log")
+
 await connect(async (client) => {
+  console.log("FIRST LOG")
+
   const infisical = getInfinsical({ client });
 
   const dockerTokenSecret = await infisical.get({
