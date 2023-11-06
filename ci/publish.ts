@@ -25,7 +25,7 @@ await connect(async (client) => {
   await login({
     username: dockerUsernameSecret,
     password: dockerTokenSecret,
-  })
+  });
 
   const container = await build({ client });
 
