@@ -26,7 +26,7 @@ await connect(async (client) => {
     stderr: "inherit",
     stdout: "inherit",
     stdin: "piped",
-    args: ["login", "docker.io", "-u", await dockerUsernameSecret.plaintext(), "--password-stdin"],
+    args: ["login", "registry-1.docker.io", "-u", await dockerUsernameSecret.plaintext(), "--password-stdin"],
   })
 
   const p = cmd.spawn();
@@ -45,7 +45,7 @@ await connect(async (client) => {
 
   await deploy({
     container,
-    repository: "docker.io/michaelmass/hellomicro",
+    repository: "michaelmass/hellomicro",
     tags: ["latest"],
   });
 
