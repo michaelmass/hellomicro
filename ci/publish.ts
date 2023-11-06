@@ -22,22 +22,17 @@ await connect(async (client) => {
     secretName: "dockerUsername",
   });
 
-  const output = await new Deno.Command("docker", {
-    stderr: "inherit",
-    stdout: "inherit",
-    args: ["login", "-u", await dockerUsernameSecret.plaintext(), "-p", await dockerTokenSecret.plaintext()],
-  }).output();
-
-  if (output.code !== 0) {
-    throw new Error("Failed to login into docker");
-  }
+  await login({
+    username: dockerUsernameSecret,
+    password: dockerTokenSecret,
+  });
 
   const container = await build({ client });
 
   await deploy({
     container,
     repository: "michaelmass/hellomicro",
-    tags: ["0.2.1"],
+    tags: ["latest"],
   });
 
   await logout();
