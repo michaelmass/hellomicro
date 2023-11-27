@@ -1,10 +1,10 @@
-import { connect } from "https://esm.sh/@dagger.io/dagger@0.8.7";
+import { connect } from "https://esm.sh/@dagger.io/dagger@0.9.3";
 import {
   build,
   login,
   logout,
   publish,
-} from "https://raw.githubusercontent.com/michaelmass/pipelines/mm-publish-docker/dagger/docker.ts";
+} from "https://raw.githubusercontent.com/michaelmass/pipelines/master/dagger/docker.ts";
 import { getInfinsical } from "https://raw.githubusercontent.com/michaelmass/pipelines/master/dagger/infisical.ts";
 
 await connect(async (client) => {

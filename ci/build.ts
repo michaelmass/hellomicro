@@ -1,4 +1,4 @@
-import { connect } from "https://esm.sh/@dagger.io/dagger@0.8.7";
+import { connect } from "https://esm.sh/@dagger.io/dagger@0.9.3";
 import {
   build,
 } from "https://raw.githubusercontent.com/michaelmass/pipelines/master/dagger/docker.ts";
