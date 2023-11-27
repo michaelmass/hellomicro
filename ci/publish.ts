@@ -3,7 +3,7 @@ import {
   build,
   login,
   logout,
-  deploy,
+  publish,
 } from "https://raw.githubusercontent.com/michaelmass/pipelines/master/dagger/docker.ts";
 import { getInfinsical } from "https://raw.githubusercontent.com/michaelmass/pipelines/master/dagger/infisical.ts";
 
@@ -29,7 +29,7 @@ await connect(async (client) => {
 
   const container = await build({ client });
 
-  await deploy({
+  await publish({
     container,
     repository: "michaelmass/hellomicro",
     tags: ["latest"],
