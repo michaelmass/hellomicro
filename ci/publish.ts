@@ -4,7 +4,7 @@ import {
   login,
   logout,
   publish,
-} from "https://raw.githubusercontent.com/michaelmass/pipelines/master/dagger/docker.ts";
+} from "https://raw.githubusercontent.com/michaelmass/pipelines/mm-publish-docker/dagger/docker.ts";
 import { getInfinsical } from "https://raw.githubusercontent.com/michaelmass/pipelines/master/dagger/infisical.ts";
 
 await connect(async (client) => {
