@@ -1,8 +1,6 @@
 import { connect } from "https://esm.sh/@dagger.io/dagger@0.9.3";
 import {
   build,
-  login,
-  logout,
   publish,
 } from "https://raw.githubusercontent.com/michaelmass/pipelines/master/dagger/docker.ts";
 import { getInfinsical } from "https://raw.githubusercontent.com/michaelmass/pipelines/master/dagger/infisical.ts";
@@ -22,18 +20,14 @@ await connect(async (client) => {
     secretName: "dockerUsername",
   });
 
-  await login({
-    username: dockerUsernameSecret,
-    password: dockerTokenSecret,
-  });
-
+  const username = await dockerUsernameSecret.plaintext();
   const container = await build({ client });
 
   await publish({
     container,
-    repository: "michaelmass/hellomicro",
+    password: dockerTokenSecret,
+    username,
+    repository: `${username}/hellomicro`,
     tags: ["latest"],
   });
-
-  await logout();
 });

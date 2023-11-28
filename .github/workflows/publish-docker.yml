@@ -10,7 +10,6 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
       - uses: michaelmass/actions/dagger@master
         with:
           source: ci/publish.ts
