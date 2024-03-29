@@ -1,9 +1,3 @@
-config.set_enabled_resources([
-  'frontend', 
-  'backend',
-  'generator',
-])
-
 local_resource(
   'generator',
   'go generate',
