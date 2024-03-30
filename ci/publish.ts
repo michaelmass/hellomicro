@@ -9,7 +9,8 @@ import { context } from 'npm:@actions/github'
 await connect(async (client) => {
   const infisical = getInfinsical({ client });
 
-  throw new Error(`WORKFLOW CONTEXT ${JSON.stringify(context, null, 2)}`)
+  console.log(`Event: ${context.eventName}`)
+  console.log(`Ref: ${context.ref}`)
 
   const dockerTokenSecret = await infisical.get({
     name: "TOKEN",
