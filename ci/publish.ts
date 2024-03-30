@@ -33,12 +33,12 @@ await connect(async (client) => {
   });
 });
 
-const tagPrefix = "refs/tags/";
-
-const removePrefix = (value: string, prefix: string) => value.startsWith(prefix) ? value.slice(prefix.length) : value;
+function removePrefix(value: string, prefix: string) {
+  return value.startsWith(prefix) ? value.slice(prefix.length) : value;
+}
 
 function getTags(ref: string) {
-  return ref.startsWith(tagPrefix)
-    ? ["latest", removePrefix(removePrefix(ref, tagPrefix), "v")]
+  return ref.startsWith("refs/tags/")
+    ? ["latest", removePrefix(removePrefix(ref, "refs/tags/"), "v")]
     : ["latest"];
 }
