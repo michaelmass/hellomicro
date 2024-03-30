@@ -5,6 +5,5 @@ await connect(async (client) => {
   await Promise.all([
     build({ client, platform: 'linux/amd64' }),
     build({ client, platform: 'linux/arm64' }),
-    build({ client, platform: 'linux/arm64/v7' }),
   ]);
 });

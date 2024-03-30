@@ -26,7 +26,6 @@ await connect(async (client) => {
   const [container, ...platformVariants] = await Promise.all([
     build({ client, platform: 'linux/amd64' }),
     build({ client, platform: 'linux/arm64' }),
-    build({ client, platform: 'linux/arm64/v7' }),
   ]);
 
   await publish({
