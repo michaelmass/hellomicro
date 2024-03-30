@@ -4,8 +4,12 @@ import {
   publish,
 } from "https://raw.githubusercontent.com/michaelmass/pipelines/master/dagger/docker.ts";
 import { getInfinsical } from "https://raw.githubusercontent.com/michaelmass/pipelines/master/dagger/infisical.ts";
+import { context } from 'npm:@actions/github'
 
 await connect(async (client) => {
+  console.log(context.eventName)
+  console.log(context.ref)
+
   const infisical = getInfinsical({ client });
 
   const dockerTokenSecret = await infisical.get({
