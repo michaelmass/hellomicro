@@ -22,7 +22,11 @@ await connect(async (client) => {
   });
 
   const username = await dockerUsernameSecret.plaintext();
-  const container = await build({ client });
+
+  const [container, ...platformVariants] = await Promise.all([
+    build({ client, platform: 'linux/amd64' }),
+    build({ client, platform: 'linux/arm64' }),
+  ]);
 
   await publish({
     container,
@@ -30,6 +34,7 @@ await connect(async (client) => {
     username,
     repository: `${username}/hellomicro`,
     tags: getTags(context.ref),
+    platformVariants,
   });
 });
 
