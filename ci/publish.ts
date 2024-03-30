@@ -24,9 +24,9 @@ await connect(async (client) => {
   const username = await dockerUsernameSecret.plaintext();
 
   const [container, ...platformVariants] = await Promise.all([
-    await build({ client, platform: 'linux/amd64' }),
-    await build({ client, platform: 'linux/arm64' }),
-    await build({ client, platform: 'linux/arm64/v7' }),
+    build({ client, platform: 'linux/amd64' }),
+    build({ client, platform: 'linux/arm64' }),
+    build({ client, platform: 'linux/arm64/v7' }),
   ]);
 
   await publish({
