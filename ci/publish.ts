@@ -9,10 +9,6 @@ import { context } from "npm:@actions/github";
 await connect(async (client) => {
   const infisical = getInfinsical({ client });
 
-  const tags = context.ref.startsWith("refs/tags/")
-    ? ["latest", context.ref.replace("refs/tags/", "")]
-    : ["latest"];
-
   const dockerTokenSecret = await infisical.get({
     name: "TOKEN",
     secretPath: "docker",
@@ -33,6 +29,16 @@ await connect(async (client) => {
     password: dockerTokenSecret,
     username,
     repository: `${username}/hellomicro`,
-    tags,
+    tags: getTags(context.ref),
   });
 });
+
+const tagPrefix = "refs/tags/";
+
+const removePrefix = (value: string, prefix: string) => value.startsWith(prefix) ? value.slice(prefix.length) : value;
+
+function getTags(ref: string) {
+  return ref.startsWith(tagPrefix)
+    ? ["latest", removePrefix(removePrefix(ref, tagPrefix), "v")]
+    : ["latest"];
+}
