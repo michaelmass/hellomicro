@@ -6,10 +6,10 @@ import {
 import { getInfinsical } from "https://raw.githubusercontent.com/michaelmass/pipelines/master/dagger/infisical.ts";
 import { context } from 'npm:@actions/github'
 
-console.log(`WORKFLOW CONTEXT ${JSON.stringify(context, null, 2)}`)
-
 await connect(async (client) => {
   const infisical = getInfinsical({ client });
+
+  await client.container().withExec(["ecoh", `WORKFLOW CONTEXT ${JSON.stringify(context, null, 2)}`]).sync()
 
   const dockerTokenSecret = await infisical.get({
     name: "TOKEN",
