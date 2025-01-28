@@ -5,8 +5,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/michaelmass/hellomicro/api"
+	empty "google.golang.org/protobuf/types/known/emptypb"
 )
 
 func (service *Service) Environments(ctx context.Context, request *empty.Empty) (*api.EnvironmentsRes, error) {

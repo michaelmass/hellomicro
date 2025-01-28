@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"net"
 	"net/http"
-	"time"
+
+	// "time"
 
 	"github.com/gogo/gateway"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
@@ -20,7 +21,9 @@ import (
 	"github.com/soheilhy/cmux"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
-	"google.golang.org/grpc/keepalive"
+
+	// "google.golang.org/grpc/credentials/insecure"
+	// "google.golang.org/grpc/keepalive"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -133,20 +136,20 @@ func (service *Service) startHTTP(l net.Listener) {
 		}),
 	)
 
-	opts := []grpc.DialOption{
-		grpc.WithInsecure(),
-		grpc.WithUserAgent("gateway-loopback"),
-		grpc.WithKeepaliveParams(keepalive.ClientParameters{
-			Time:    time.Second * 10,
-			Timeout: time.Millisecond * 100,
-		}),
-	}
+	// opts := []grpc.DialOption{
+	// 	grpc.WithTransportCredentials(insecure.NewCredentials()),
+	// 	grpc.WithUserAgent("gateway-loopback"),
+	// 	grpc.WithKeepaliveParams(keepalive.ClientParameters{
+	// 		Time:    time.Second * 10,
+	// 		Timeout: time.Millisecond * 100,
+	// 	}),
+	// }
 
-	err := api.RegisterHellomicroHandlerFromEndpoint(context.Background(), gwmux, fmt.Sprintf("%s:%s", "127.0.0.1", service.port), opts)
+	// err := api.RegisterHellomicroHandlerFromEndpoint(context.Background(), gwmux, fmt.Sprintf("%s:%s", "127.0.0.1", service.port), opts)
 
-	if err != nil {
-		logrus.WithError(errors.Wrap(err, "failed to serve http gateway")).Fatal()
-	}
+	// if err != nil {
+	// 	logrus.WithError(errors.Wrap(err, "failed to serve http gateway")).Fatal()
+	// }
 
 	http.Serve(l, service.handler(gwmux))
 }

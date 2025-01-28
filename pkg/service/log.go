@@ -3,11 +3,11 @@ package service
 import (
 	"context"
 
-	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/google/uuid"
 	"github.com/michaelmass/hellomicro/api"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
+	empty "google.golang.org/protobuf/types/known/emptypb"
 )
 
 func (service *Service) Log(ctx context.Context, request *api.LogReq) (*empty.Empty, error) {

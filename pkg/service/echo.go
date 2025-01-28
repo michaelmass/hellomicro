@@ -8,10 +8,11 @@ import (
 
 	"github.com/pkg/errors"
 
-	types "github.com/gogo/protobuf/types"
-	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/michaelmass/hellomicro/api"
 	"google.golang.org/grpc/metadata"
+	empty "google.golang.org/protobuf/types/known/emptypb"
+
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 const echoMetadataKey = "echo"
@@ -32,7 +33,7 @@ func echoMetadataFunc(c context.Context, r *http.Request) metadata.MD {
 	cookies := []*api.Cookie{}
 
 	for _, cookie := range r.Cookies() {
-		expires, _ := types.TimestampProto(cookie.Expires)
+		expires := timestamppb.New(cookie.Expires)
 
 		cookies = append(cookies, &api.Cookie{
 			Name:       cookie.Name,

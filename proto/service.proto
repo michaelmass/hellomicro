@@ -127,12 +127,6 @@ service Hellomicro {
       get: "/v1/files/delete"
     };
   }
-
-  rpc ETag(ETagReq) returns (ETagRes) {
-    option (google.api.http) = {
-      get: "/v1/etag"
-    };
-  }
 }
 
 message StringArray {
@@ -265,9 +259,3 @@ message WriteFileReq {
 
 message DeleteFileReq {}
 message DeleteFileRes {}
-
-message ETagReq {
-  string message = 1;
-}
-
-message ETagRes {}

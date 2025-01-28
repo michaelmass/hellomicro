@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/michaelmass/hellomicro/api"
+	empty "google.golang.org/protobuf/types/known/emptypb"
 )
 
 func (service *Service) Latency(ctx context.Context, request *api.LatencyReq) (*empty.Empty, error) {
