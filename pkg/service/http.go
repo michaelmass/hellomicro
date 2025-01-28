@@ -23,7 +23,7 @@ func newSpa(staticPath, indexPath string) *spaHandler {
 func (service *Service) handler(h http.Handler) http.Handler {
 	r := mux.NewRouter()
 
-	r.PathPrefix("/v1").Handler(h)
+	r.PathPrefix("/v1").Handler(EtagHandler(h, 100))
 	r.PathPrefix("/").Handler(newSpa("static", "index.html"))
 
 	return r
