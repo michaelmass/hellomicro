@@ -1,4 +1,4 @@
-import { connect } from "https://esm.sh/@dagger.io/dagger@0.9.3";
+import { connect } from "https://esm.sh/@dagger.io/dagger@0.9.6";
 import {
   build,
   publish,
@@ -11,13 +11,13 @@ await connect(async (client) => {
 
   const dockerTokenSecret = await infisical.get({
     name: "TOKEN",
-    secretPath: "docker",
+    secretPath: "accounts/docker",
     secretName: "dockerToken",
   });
 
   const dockerUsernameSecret = await infisical.get({
     name: "USERNAME",
-    secretPath: "docker",
+    secretPath: "accounts/docker",
     secretName: "dockerUsername",
   });
 
