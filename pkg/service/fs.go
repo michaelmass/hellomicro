@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"github.com/michaelmass/hellomicro/api"
+	api "github.com/michaelmass/hellomicro/api/proto"
 	"github.com/pkg/errors"
 	empty "google.golang.org/protobuf/types/known/emptypb"
 	"google.golang.org/protobuf/types/known/timestamppb"

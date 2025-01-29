@@ -8,7 +8,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/michaelmass/hellomicro/api"
+	api "github.com/michaelmass/hellomicro/api/proto"
 	"google.golang.org/grpc/metadata"
 	empty "google.golang.org/protobuf/types/known/emptypb"
 

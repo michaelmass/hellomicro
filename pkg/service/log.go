@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/google/uuid"
-	"github.com/michaelmass/hellomicro/api"
+	api "github.com/michaelmass/hellomicro/api/proto"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	empty "google.golang.org/protobuf/types/known/emptypb"

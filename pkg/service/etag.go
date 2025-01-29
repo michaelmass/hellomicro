@@ -39,7 +39,6 @@ func (w etagWriter) Write(b []byte) (int, error) {
 
 func (w etagWriter) WriteHeader(code int) {
 	// Track if the headers have already been written
-	w.wroteHeader = true
 	w.ResponseWriter.WriteHeader(code)
 }
 

@@ -1,6 +1,6 @@
 local_resource(
   'generator',
-  'go generate',
+  'buf generate',
   deps=['./proto'],
   labels=[
     'generator',
@@ -9,7 +9,7 @@ local_resource(
 
 local_resource(
   'backend',
-  serve_cmd='go run .',
+  serve_cmd='go run . serve',
   readiness_probe=probe(http_get=http_get_action(port=8080, path='/v1/ping'), period_secs=1, failure_threshold=10),
   deps=['./pkg', './main.go', './api'],
   links=[

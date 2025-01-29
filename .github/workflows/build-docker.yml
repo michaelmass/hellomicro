@@ -13,3 +13,4 @@ jobs:
           source: ci/build.ts
           infisical-token: ${{ secrets.INFISICAL_TOKEN }}
           infisical-workspace-id: ${{ secrets.INFISICAL_WORKSPACE_ID }}
+          infisical-environment: production

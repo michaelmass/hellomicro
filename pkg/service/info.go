@@ -4,7 +4,7 @@ import (
 	"context"
 	"runtime"
 
-	"github.com/michaelmass/hellomicro/api"
+	api "github.com/michaelmass/hellomicro/api/proto"
 	empty "google.golang.org/protobuf/types/known/emptypb"
 )
 
