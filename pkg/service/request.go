@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/michaelmass/hellomicro/api"
+	api "github.com/michaelmass/hellomicro/api/proto"
 	"github.com/pkg/errors"
 )
 

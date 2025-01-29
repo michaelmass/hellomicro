@@ -7,19 +7,19 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gogo/gateway"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	grpc_validator "github.com/grpc-ecosystem/go-grpc-middleware/validator"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/michaelmass/hellomicro/api"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	api "github.com/michaelmass/hellomicro/api/proto"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/sirupsen/logrus"
 	"github.com/soheilhy/cmux"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/keepalive"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/reflection"
@@ -35,20 +35,14 @@ var metadataFuncMap = map[string]MetadataFunc{
 }
 
 type Service struct {
-	marshaler *gateway.JSONPb
-	endpoint  string
-	port      string
+	endpoint string
+	port     string
 }
 
 func New(endpoint string, port string) *Service {
 	return &Service{
 		endpoint: endpoint,
 		port:     port,
-		marshaler: &gateway.JSONPb{
-			EmitDefaults: true,
-			Indent:       "  ",
-			OrigName:     true,
-		},
 	}
 }
 
@@ -120,8 +114,7 @@ func (service *Service) startGRPC(l net.Listener) {
 
 func (service *Service) startHTTP(l net.Listener) {
 	gwmux := runtime.NewServeMux(
-		runtime.WithMarshalerOption(runtime.MIMEWildcard, service.marshaler),
-		runtime.WithProtoErrorHandler(runtime.DefaultHTTPProtoErrorHandler),
+		runtime.WithErrorHandler(runtime.DefaultHTTPErrorHandler),
 		runtime.WithMetadata(func(c context.Context, r *http.Request) metadata.MD {
 			metadataFunc, ok := metadataFuncMap[r.URL.Path]
 
@@ -134,7 +127,7 @@ func (service *Service) startHTTP(l net.Listener) {
 	)
 
 	opts := []grpc.DialOption{
-		grpc.WithInsecure(),
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithUserAgent("gateway-loopback"),
 		grpc.WithKeepaliveParams(keepalive.ClientParameters{
 			Time:    time.Second * 10,

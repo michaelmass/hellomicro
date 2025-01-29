@@ -4,8 +4,8 @@ import (
 	"context"
 	"runtime"
 
-	"github.com/golang/protobuf/ptypes/empty"
-	"github.com/michaelmass/hellomicro/api"
+	api "github.com/michaelmass/hellomicro/api/proto"
+	empty "google.golang.org/protobuf/types/known/emptypb"
 )
 
 func (service *Service) Info(ctx context.Context, request *empty.Empty) (*api.InfoRes, error) {

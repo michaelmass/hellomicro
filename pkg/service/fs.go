@@ -8,10 +8,10 @@ import (
 	"path/filepath"
 	"strconv"
 
-	types "github.com/gogo/protobuf/types"
-	"github.com/golang/protobuf/ptypes/empty"
-	"github.com/michaelmass/hellomicro/api"
+	api "github.com/michaelmass/hellomicro/api/proto"
 	"github.com/pkg/errors"
+	empty "google.golang.org/protobuf/types/known/emptypb"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func (service *Service) ListFiles(ctx context.Context, request *api.ListFilesReq) (*api.ListFilesRes, error) {
@@ -32,15 +32,11 @@ func (service *Service) ListFiles(ctx context.Context, request *api.ListFilesReq
 			return nil, errors.Wrapf(err, "unable get info of file %s", file)
 		}
 
-		modTime, err := types.TimestampProto(fileInfo.ModTime())
-
-		if err != nil {
-			return nil, errors.Wrapf(err, "unable to convert mod time of file %s", file)
-		}
+		modTime := timestamppb.New(fileInfo.ModTime())
 
 		fileInfos.FileInfos = append(fileInfos.FileInfos, &api.FileInfo{
 			Path:    file,
-			Size_:   fileInfo.Size(),
+			Size:    fileInfo.Size(),
 			ModTime: modTime,
 			Mode:    fileInfo.Mode().String(),
 		})

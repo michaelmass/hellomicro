@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/michaelmass/hellomicro/api"
+	api "github.com/michaelmass/hellomicro/api/proto"
 )
 
 func MapSAToMapApiSA(input map[string][]string) map[string]*api.StringArray {

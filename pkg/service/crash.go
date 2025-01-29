@@ -4,8 +4,8 @@ import (
 	"context"
 	"os"
 
-	"github.com/golang/protobuf/ptypes/empty"
-	"github.com/michaelmass/hellomicro/api"
+	api "github.com/michaelmass/hellomicro/api/proto"
+	empty "google.golang.org/protobuf/types/known/emptypb"
 )
 
 func (service *Service) Crash(ctx context.Context, request *empty.Empty) (*empty.Empty, error) {
