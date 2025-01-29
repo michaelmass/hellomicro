@@ -1,7 +1,4 @@
-FROM node:16.1.0 as client
-RUN yarn install
-
-FROM golang:1.22-alpine as builder
+FROM golang:1.23-alpine AS builder
 
 WORKDIR /app
 
