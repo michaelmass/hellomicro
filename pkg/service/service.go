@@ -35,7 +35,6 @@ var metadataFuncMap = map[string]MetadataFunc{
 }
 
 type Service struct {
-	// marshaler *gateway.JSONPb
 	endpoint string
 	port     string
 }
@@ -44,11 +43,6 @@ func New(endpoint string, port string) *Service {
 	return &Service{
 		endpoint: endpoint,
 		port:     port,
-		// marshaler: &gateway.JSONPb{
-		// 	EmitDefaults: true,
-		// 	Indent:       "  ",
-		// 	OrigName:     true,
-		// },
 	}
 }
 
